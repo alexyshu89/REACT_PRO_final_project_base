@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
 import { ButtonCustom } from 'shared/ui/ButtonCustom';
-import waitingImg from 'shared/assets/images/waiting.png';
+import { ImgCustom } from 'shared/ui/ImgCustom';
 
 import { Price } from '../../Price/ui/Price';
 import { LikeButton } from '../../LikeButton';
@@ -45,15 +45,7 @@ export const Card = ({ product }: CardProps) => {
 				<LikeButton product={product} />
 			</div>
 			<Link className={s['card__link']} to={`/products/${id}`}>
-				<img
-					src={images || waitingImg}
-					alt={name}
-					className={s['card__image']}
-					loading='lazy'
-					onError={(e) => {
-						e.currentTarget.src = waitingImg;
-					}}
-				/>
+				<ImgCustom images={images} alt={name} className={s['card__image']} />
 				<div className={s['card__desc']}>
 					<Price price={price} discountPrice={discount} />
 					<h3 className={s['card__name']}>{name}</h3>

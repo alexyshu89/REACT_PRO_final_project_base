@@ -12,7 +12,7 @@ import { ProductCartCounter } from 'shared/ui/ProductCartCounter/ui/ProductCartC
 import { useAppSelector } from 'shared/store/utils';
 import { cartSelectors } from 'shared/store/slices/cart';
 import { CartCounter } from 'shared/ui/CartCounter';
-import waitingImg from 'shared/assets/images/waiting.png';
+import { ImgCustom } from 'shared/ui/ImgCustom';
 
 import { ReviewList } from 'widgets/ReviewList/ui/ReviewList';
 
@@ -45,14 +45,7 @@ export const ProductPage = WithProtection(() => {
 			<Rating rating={3} />
 			<div className={classNames(s['product'])}>
 				<div className={classNames(s['product__img-wrapper'])}>
-					<img
-						src={images || waitingImg}
-						alt={description}
-						loading='lazy'
-						onError={(e) => {
-							e.currentTarget.src = waitingImg;
-						}}
-					/>
+					<ImgCustom images={images} alt={description} />
 				</div>
 				<div className={classNames(s['product__desc'])}>
 					<div className={classNames(s['price-big'], s['price-wrap'])}>

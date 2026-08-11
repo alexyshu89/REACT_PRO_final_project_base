@@ -6,7 +6,7 @@ import { ButtonCustom } from 'shared/ui/ButtonCustom';
 import { cartActions } from 'shared/store/slices/cart';
 import { CartCounter } from 'shared/ui/CartCounter';
 import { ReactComponent as TrashIcon } from 'shared/assets/icons/trash.svg';
-import waitingImg from 'shared/assets/images/waiting.png';
+import { ImgCustom } from 'shared/ui/ImgCustom';
 
 import s from './CartItem.module.css';
 
@@ -23,14 +23,10 @@ export const CartItem = ({ product }: CartItemProps) => {
 	return (
 		<div className={classNames(s['cart-item'])}>
 			<div className={classNames(s['cart-item__desc'])}>
-				<img
-					src={images || waitingImg}
+				<ImgCustom
+					images={images}
 					alt={name}
 					className={classNames(s['cart-item__image'])}
-					loading='lazy'
-					onError={(e) => {
-						e.currentTarget.src = waitingImg;
-					}}
 				/>
 
 				<div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
