@@ -1,12 +1,17 @@
 import classNames from 'classnames';
-import s from './Card.module.css';
-import { Price } from './Price/ui/Price';
 import { Link } from 'react-router-dom';
+
+import { ButtonCustom } from 'shared/ui/ButtonCustom';
+import waitingImg from 'shared/assets/images/waiting.png';
+
+import { Price } from '../../Price/ui/Price';
 import { LikeButton } from '../../LikeButton';
 import { useAppSelector } from '../../../store/utils';
 import { cartSelectors } from '../../../store/slices/cart';
 import { useAddToCart } from '../../../hooks/useAddToCart';
 import { CartCounter } from '../../CartCounter';
+
+import s from './Card.module.css';
 
 type CardProps = {
 	product: Product;
@@ -41,10 +46,13 @@ export const Card = ({ product }: CardProps) => {
 			</div>
 			<Link className={s['card__link']} to={`/products/${id}`}>
 				<img
-					src={images}
+					src={images || waitingImg}
 					alt={name}
 					className={s['card__image']}
 					loading='lazy'
+					onError={(e) => {
+						e.currentTarget.src = waitingImg;
+					}}
 				/>
 				<div className={s['card__desc']}>
 					<Price price={price} discountPrice={discount} />
@@ -54,16 +62,16 @@ export const Card = ({ product }: CardProps) => {
 			{isProductInCart ? (
 				<CartCounter productId={id} />
 			) : (
-				<button
-					onClick={() => addProductToCart({ ...product, count: 1 })}
+				<ButtonCustom
+					name='В корзину'
+					click={() => addProductToCart({ ...product, count: 1 })}
 					disabled={isProductInCart}
 					className={classNames(
 						s['card__cart'],
 						s['card__btn'],
 						s['card__btn_type_primary']
-					)}>
-					В корзину
-				</button>
+					)}
+				/>
 			)}
 		</article>
 	);

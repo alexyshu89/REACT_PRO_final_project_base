@@ -1,6 +1,9 @@
-import s from './LikeButton.module.css';
-import { ReactComponent as LikeSvg } from './../../../assets/icons/like.svg';
 import classNames from 'classnames';
+import { toast } from 'react-toastify';
+
+import { ButtonCustom } from 'shared/ui/ButtonCustom';
+
+import { ReactComponent as LikeSvg } from './../../../assets/icons/like.svg';
 import { useAppSelector } from '../../../store/utils';
 import { userSelectors } from '../../../store/slices/user';
 import {
@@ -8,7 +11,8 @@ import {
 	useDeleteLikeProductMutation,
 	IErrorResponse,
 } from '../../../store/api/productsApi';
-import { toast } from 'react-toastify';
+
+import s from './LikeButton.module.css';
 
 type TLikeButtonProps = {
 	product: Product;
@@ -41,12 +45,12 @@ export const LikeButton = ({ product }: TLikeButtonProps) => {
 	};
 
 	return (
-		<button
+		<ButtonCustom
 			className={classNames(s['card__favorite'], {
 				[s['card__favorite_is-active']]: isLike,
 			})}
-			onClick={toggleLike}>
+			click={toggleLike}>
 			<LikeSvg />
-		</button>
+		</ButtonCustom>
 	);
 };

@@ -1,6 +1,7 @@
 import { ChangeEvent } from 'react';
-import { cartActions, cartSelectors } from '../../../store/slices/cart';
 import { useDispatch } from 'react-redux';
+
+import { cartActions, cartSelectors } from '../../../store/slices/cart';
 import { useAppSelector } from '../../../store/utils';
 
 const MIN_COUNT = 1;

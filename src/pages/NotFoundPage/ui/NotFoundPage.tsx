@@ -1,4 +1,7 @@
 import { Link } from 'react-router-dom';
+
+import { ButtonCustom } from 'shared/ui/ButtonCustom';
+
 import s from './NotFoudPage.module.css';
 
 export const NotFoundPage = () => {
@@ -6,7 +9,7 @@ export const NotFoundPage = () => {
 		<div className={s.NotFoundPage}>
 			<h1>Страница на найдена</h1>
 			<Link to='/'>
-				<button>Перейти на главную</button>
+				<ButtonCustom name='Перейти на главную' />
 			</Link>
 		</div>
 	);

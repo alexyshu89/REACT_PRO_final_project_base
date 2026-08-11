@@ -14,11 +14,12 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
+
 import { SignUpFormValues } from '../utils/types';
 import { signUpFormSchema } from '../utils/validator';
-import { userActions } from '../../../shared/store/slices/user';
-import { getMessageFromError } from '../../../shared/utils';
-import { useSignUpMutation } from '../../../shared/store/api/authApi';
+import { userActions } from 'shared/store/slices/user';
+import { getMessageFromError } from 'shared/utils';
+import { useSignUpMutation } from 'shared/store/api/authApi';
 
 export const SignUpForm: FC = () => {
 	const dispatch = useDispatch();

@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+
 import s from './Spinner.module.css';
 
 export const Spinner = () => {

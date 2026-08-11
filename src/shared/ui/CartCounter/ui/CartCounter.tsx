@@ -1,6 +1,11 @@
-import { useCount } from '../hooks/useCount';
-import s from './CartCounter.module.css';
 import classNames from 'classnames';
+
+import { ButtonCustom } from 'shared/ui/ButtonCustom';
+import { InputCustom } from 'shared/ui/InputCustom';
+
+import { useCount } from '../hooks/useCount';
+
+import s from './CartCounter.module.css';
 
 type TCartCounter = {
 	productId: string;
@@ -12,23 +17,24 @@ export const CartCounter = ({ productId }: TCartCounter) => {
 	return (
 		<>
 			<div className={classNames(s['button-count'])}>
-				<button
-					onClick={handleDecrement}
-					className={classNames(s['button-count__minus'])}>
-					-
-				</button>
-				<input
-					onChange={handleSetCount}
+				<ButtonCustom
+					name='-'
+					click={handleDecrement}
+					className={classNames(s['button-count__minus'])}
+				/>
+
+				<InputCustom
+					change={handleSetCount}
 					type='number'
 					className={classNames(s['button-count__num'])}
 					value={count}
 				/>
-				<button
-					onClick={handleIncrement}
+				<ButtonCustom
+					name='+'
+					click={handleIncrement}
 					className={classNames(s['button-count__plus'])}
-					disabled={count >= stock}>
-					+
-				</button>
+					disabled={count >= stock}
+				/>
 			</div>
 		</>
 	);

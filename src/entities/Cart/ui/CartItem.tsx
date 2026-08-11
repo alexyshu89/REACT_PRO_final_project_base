@@ -1,10 +1,14 @@
-import { ReactComponent as TrashIcon } from '../../../../../shared/assets/icons/trash.svg';
 import { Link } from 'react-router-dom';
-import s from '../../CartPage.module.css';
 import classNames from 'classnames';
 import { useDispatch } from 'react-redux';
-import { cartActions } from '../../../../../shared/store/slices/cart';
-import { CartCounter } from '../../../../../shared/ui/CartCounter';
+
+import { ButtonCustom } from 'shared/ui/ButtonCustom';
+import { cartActions } from 'shared/store/slices/cart';
+import { CartCounter } from 'shared/ui/CartCounter';
+import { ReactComponent as TrashIcon } from 'shared/assets/icons/trash.svg';
+import waitingImg from 'shared/assets/images/waiting.png';
+
+import s from './CartItem.module.css';
 
 type CartItemProps = {
 	product: CartProduct;
@@ -20,9 +24,13 @@ export const CartItem = ({ product }: CartItemProps) => {
 		<div className={classNames(s['cart-item'])}>
 			<div className={classNames(s['cart-item__desc'])}>
 				<img
-					src={images}
+					src={images || waitingImg}
 					alt={name}
 					className={classNames(s['cart-item__image'])}
+					loading='lazy'
+					onError={(e) => {
+						e.currentTarget.src = waitingImg;
+					}}
 				/>
 
 				<div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
@@ -48,9 +56,9 @@ export const CartItem = ({ product }: CartItemProps) => {
 								</div>
 							</div>
 						</div>
-						<button className={classNames(s['cart-item__bnt-trash'])}>
+						<ButtonCustom className={classNames(s['cart-item__bnt-trash'])}>
 							<TrashIcon onClick={handleDelete} />
-						</button>
+						</ButtonCustom>
 					</div>
 				</div>
 			</div>
