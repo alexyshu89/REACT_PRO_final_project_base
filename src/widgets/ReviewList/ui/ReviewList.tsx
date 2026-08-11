@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 
 import { Rating } from 'shared/ui/Rating';
-import { ReviewForm } from 'widgets/ReviewForm';
+import { ReviewForm } from 'features/ReviewForm';
 
 import s from './ReviewList.module.css';
 

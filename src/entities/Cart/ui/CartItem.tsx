@@ -4,9 +4,10 @@ import { useDispatch } from 'react-redux';
 
 import { ButtonCustom } from 'shared/ui/ButtonCustom';
 import { cartActions } from 'shared/store/slices/cart';
-import { CartCounter } from 'shared/ui/CartCounter';
 import { ReactComponent as TrashIcon } from 'shared/assets/icons/trash.svg';
 import { ImgCustom } from 'shared/ui/ImgCustom';
+
+import { CartCounter } from 'features/Cart';
 
 import s from './CartItem.module.css';
 

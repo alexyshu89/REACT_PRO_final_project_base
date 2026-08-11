@@ -5,16 +5,17 @@ import truckSVG from 'shared/assets/icons/truck.svg';
 import qualitySVG from 'shared/assets/icons/quality.svg';
 import { Rating } from 'shared/ui/Rating';
 import { ButtonBack } from 'shared/ui/ButtonBack';
-import { LikeButton } from 'shared/ui/LikeButton';
+import { LikeButton } from 'features/LikeButton';
 import { WithProtection } from 'shared/store/HOCs/WithProtection';
 import { useGetProductQuery } from 'shared/store/api/productsApi';
-import { ProductCartCounter } from 'shared/ui/ProductCartCounter/ui/ProductCartCounter';
+import { ProductCartCounter } from 'features/Cart/ui/ProductCartCounter';
 import { useAppSelector } from 'shared/store/utils';
 import { cartSelectors } from 'shared/store/slices/cart';
-import { CartCounter } from 'shared/ui/CartCounter';
 import { ImgCustom } from 'shared/ui/ImgCustom';
 
 import { ReviewList } from 'widgets/ReviewList/ui/ReviewList';
+
+import { CartCounter } from 'features/Cart';
 
 import s from './ProductPage.module.css';
 

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { useAppSelector } from 'shared/store/utils';
 import { cartSelectors } from 'shared/store/slices/cart';
 
-import { CartAmount } from 'features/CartAmount';
+import { CartAmount } from 'features/Cart';
 
 import { CartList } from 'entities/Cart';
 
@@ -22,8 +22,8 @@ export const CartPage = () => {
 				<div className={classNames(s['cart-title'])}>
 					<span>{products.length}</span> в корзине
 				</div>
-				<CartList products={products} />
-				<CartAmount products={products} />
+				<CartList />
+				<CartAmount />
 			</div>
 		</div>
 	);

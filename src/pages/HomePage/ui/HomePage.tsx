@@ -1,6 +1,7 @@
+import { LoadMore } from 'features/LoadMore';
+
 import { WithProtection } from 'shared/store/HOCs/WithProtection';
 import { WithQuery } from 'shared/store/HOCs/WithQuery';
-import { LoadMore } from 'shared/ui/LoadMore';
 import { useProducts } from 'shared/store/hooks/useProducts';
 
 import { CardList } from 'widgets/CardList';

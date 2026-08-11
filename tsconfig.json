@@ -23,7 +23,8 @@
 		"allowJs": true,
 		"outDir": "./dist/",
 		"rootDir": "./",
-		"plugins": [{ "name": "typescript-plugin-css-modules" }]
+		"plugins": [{ "name": "typescript-plugin-css-modules" }],
+		"types": ["node"]
 	},
 	"include": ["src/**/*", "global.d.ts"]
 }

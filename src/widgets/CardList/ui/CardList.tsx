@@ -1,5 +1,4 @@
-import { Card } from 'shared/ui/Card';
-
+import { Card } from 'entities/Card';
 import s from './CardList.module.css';
 
 type CardListProps = {
