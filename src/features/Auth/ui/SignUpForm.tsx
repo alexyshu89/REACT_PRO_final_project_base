@@ -24,33 +24,22 @@ import { signUpFormSchema } from '../model/validator';
 
 export const SignUpForm: FC = () => {
 	const dispatch = useDispatch();
-	// navigate поможет сделать редирект в нужный момент
 	const navigate = useNavigate();
-	// Из хука useSignUpMutation (был получен путем автогенерации)
-	// достаем функцию, которая будет (регистрировать пользователя) делать POST-запрос к нашем серверу)
 	const [signUpRequestFn] = useSignUpMutation();
-	// инициализируем react-hook-form
 	const {
-		// control понадобиться, чтобы подружить react-hook-form и компоненты из MUI
 		control,
 		handleSubmit,
 		formState: { errors, isValid, isSubmitting, isSubmitted },
-		// с помощью generic подсказываем react-hook-form, какие поля содержит наша форма
 	} = useForm<SignUpFormValues>({
 		defaultValues: {
 			email: '',
 			password: '',
 		},
-		// react-hook-form умеет работать со многими библиотеками
-		// валидации, мы используем yup
 		resolver: yupResolver(signUpFormSchema),
 	});
 
 	const submitHandler: SubmitHandler<SignUpFormValues> = async (values) => {
 		try {
-			// метод "unwrap" помогает убрать вспомогательные обертки
-			// RTK, которые обрабатывают ошибки. Теперь ошибки обрабатываем мы
-			// с помощью конструкции try...catch. В этом случае нам так удобней
 			const response = await signUpRequestFn(values).unwrap();
 
 			dispatch(userActions.setUser(response.user));
@@ -58,13 +47,9 @@ export const SignUpForm: FC = () => {
 				userActions.setAccessToken({ accessToken: response.accessToken })
 			);
 
-			// Выводим уведомление, что пользователь успешно зарегался
-			// Есть куча библиотек для отображения "Тостеров". Мы используем
-			// react-toastify — https://github.com/fkhadra/react-toastify#readme
 			toast.success('Вы успешно зарегистрированы!');
 			navigate('/');
 		} catch (error) {
-			// Если произошла ошибка, то выводим уведомление
 			console.log({ error });
 			toast.error(
 				getMessageFromError(
@@ -95,9 +80,6 @@ export const SignUpForm: FC = () => {
 					onSubmit={handleSubmit(submitHandler)}
 					noValidate
 					sx={{ mt: 1 }}>
-					{/* Чтобы подружить react-hook-form с MUI используем компонент Controller
-              смотри доку https://react-hook-form.com/get-started#IntegratingwithUIlibraries
-           */}
 					<Controller
 						name='email'
 						control={control}
@@ -134,8 +116,6 @@ export const SignUpForm: FC = () => {
 
 					<LoadingButton
 						type='submit'
-						// кнопка становится недоступной после первой валидации (если есть ошибки)
-						// или когда выполняется отправка (чтобы не дать пользователю отправить форму несколько раз)
 						disabled={isSubmitted && (!isValid || isSubmitting)}
 						loading={isSubmitting}
 						fullWidth
