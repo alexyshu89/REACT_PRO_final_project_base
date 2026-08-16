@@ -1,6 +1,7 @@
 import { useEffect, useRef, ReactNode, MouseEvent } from 'react';
 import { createPortal } from 'react-dom';
-import s from './Modal.module.scss'; // Подключите ваши стили
+
+import s from './Modal.module.css';
 
 interface ModalProps {
 	isOpen: boolean;
@@ -61,7 +62,7 @@ export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
 					className={s.closeBtn}
 					onClick={onClose}
 					aria-label='Закрыть модальное окно'>
-					'x'
+					✖️
 				</button>
 				{children}
 			</div>

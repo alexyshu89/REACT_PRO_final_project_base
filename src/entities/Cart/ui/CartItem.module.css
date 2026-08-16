@@ -105,3 +105,33 @@
 	left: auto;
 	right: 0;
 }
+
+.actions {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 30px;
+}
+
+.btn {
+	display: inline-block;
+	padding: 10px 18px;
+	color: white;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 20px;
+	text-decoration: none;
+	border-radius: 55px;
+	border: none;
+}
+
+.confirm {
+	background-color: rgb(47, 187, 47);
+}
+
+.cancel {
+	background-color: rgb(242, 223, 8);
+}
+
+.modalBody {
+	margin: 40px 20px 10px 20px;
+}
