@@ -7,6 +7,7 @@ import { userSelectors } from 'shared/store/slices/user';
 import { isLiked } from 'shared/utils';
 import { useProducts } from 'shared/store/hooks/useProducts';
 import { cartSelectors } from 'shared/store/slices/cart';
+import { useMemo } from 'react';
 
 import { Search } from 'features/Search';
 
@@ -17,9 +18,10 @@ export const Header = () => {
 	const user = useAppSelector(userSelectors.getUser);
 	const cartProducts = useAppSelector(cartSelectors.getCartProducts);
 
-	const likeCount = products.filter((product) =>
-		isLiked(product.likes, user?.id)
-	).length;
+	const likeCount = useMemo(
+		() => products.filter((product) => isLiked(product.likes, user?.id)).length,
+		[products, user]
+	);
 
 	const accessToken = useAppSelector(userSelectors.getAccessToken);
 

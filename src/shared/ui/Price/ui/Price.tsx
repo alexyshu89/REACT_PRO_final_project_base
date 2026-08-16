@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { memo } from 'react';
 
 import s from './Price.module.css';
 
@@ -7,7 +8,7 @@ type TPriceProps = {
 	discountPrice: number;
 };
 
-export const Price = ({ price, discountPrice }: TPriceProps) => {
+export const Price = memo(({ price, discountPrice }: TPriceProps) => {
 	return (
 		<div className={classNames(s['price-small'], s['price-wrap'])}>
 			<span className={classNames(s['price_old'], s['price_left'])}>
@@ -18,4 +19,4 @@ export const Price = ({ price, discountPrice }: TPriceProps) => {
 			</span>
 		</div>
 	);
-};
+});

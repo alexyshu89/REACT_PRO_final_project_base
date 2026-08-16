@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 type InputType =
 	| 'text'
 	| 'password'
@@ -32,24 +34,26 @@ interface InputCustomProps {
 	value?: string | number;
 }
 
-export const InputCustom: React.FC<InputCustomProps> = ({
-	name,
-	className,
-	id,
-	type,
-	placeholder,
-	value,
-	change,
-}) => {
-	return (
-		<input
-			className={className}
-			name={name}
-			id={id}
-			type={type}
-			placeholder={placeholder}
-			onChange={change}
-			value={value}
-		/>
-	);
-};
+export const InputCustom = memo(
+	({
+		name,
+		className,
+		id,
+		type,
+		placeholder,
+		value,
+		change,
+	}: InputCustomProps) => {
+		return (
+			<input
+				className={className}
+				name={name}
+				id={id}
+				type={type}
+				placeholder={placeholder}
+				onChange={change}
+				value={value}
+			/>
+		);
+	}
+);

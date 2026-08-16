@@ -1,11 +1,12 @@
 import { ReactComponent as Star } from '../../../assets/icons/star.svg';
+import { memo } from 'react';
 
 type TRating = {
 	rating?: number;
 	isEdit?: boolean;
 	onChange?: (rating: number) => void;
 };
-export const Rating = ({ rating = 0, isEdit = false, onChange }: TRating) => {
+export const Rating = memo(({ rating = 0, isEdit = false, onChange }: TRating) => {
 	return (
 		<div>
 			{[...Array(5)].map((_e, i) => (
@@ -18,4 +19,4 @@ export const Rating = ({ rating = 0, isEdit = false, onChange }: TRating) => {
 			))}
 		</div>
 	);
-};
+});

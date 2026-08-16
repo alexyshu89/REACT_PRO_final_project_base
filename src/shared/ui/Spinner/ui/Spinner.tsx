@@ -1,8 +1,9 @@
 import classNames from 'classnames';
+import { memo } from 'react';
 
 import s from './Spinner.module.css';
 
-export const Spinner = () => {
+export const Spinner = memo(() => {
 	return (
 		<div className={classNames(s['wrapper'])}>
 			<div className={classNames(s['loader'])}>
@@ -13,4 +14,4 @@ export const Spinner = () => {
 			</div>
 		</div>
 	);
-};
+});

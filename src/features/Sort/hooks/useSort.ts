@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'shared//store/utils';
 import {
 	productsActions,
@@ -18,27 +19,30 @@ export const useSort = () => {
 		dispatch(productsActions.setSort(newSort));
 	};
 
-	const sortParams: SortParams[] = [
-		{
-			title: 'Дешевые',
-			value: 'low-price',
-			href: '#',
-		},
-		{
-			title: 'Дорогие',
-			value: 'high-price',
-			href: '#',
-		},
-		{
-			title: 'Новые',
-			value: 'newest',
-			href: '#',
-		},
-		{
-			title: 'Старые',
-			value: 'oldest',
-			href: '#',
-		},
-	];
+	const sortParams = useMemo<SortParams[]>(
+		() => [
+			{
+				title: 'Дешевые',
+				value: 'low-price',
+				href: '#',
+			},
+			{
+				title: 'Дорогие',
+				value: 'high-price',
+				href: '#',
+			},
+			{
+				title: 'Новые',
+				value: 'newest',
+				href: '#',
+			},
+			{
+				title: 'Старые',
+				value: 'oldest',
+				href: '#',
+			},
+		],
+		[]
+	);
 	return { sort, setSort, sortParams };
 };

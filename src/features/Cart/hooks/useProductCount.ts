@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useCallback } from 'react';
 
 const MIN_COUNT = 1;
 const MAX_COUNT = 99;
@@ -6,7 +6,7 @@ const MAX_COUNT = 99;
 export const useProductCount = () => {
 	const [count, setCount] = useState(1);
 
-	const handleCount = (e: ChangeEvent<HTMLInputElement>) => {
+	const handleCount = useCallback((e: ChangeEvent<HTMLInputElement>) => {
 		const newCount = +e.target.value;
 		const validCount =
 			newCount > MAX_COUNT
@@ -15,16 +15,19 @@ export const useProductCount = () => {
 				? MIN_COUNT
 				: newCount;
 		setCount(validCount);
-	};
-	const handleCountMinus = () => {
+	}, []);
+
+	const handleCountMinus = useCallback(() => {
 		const newCount = count - 1;
 		const validCount = newCount < MIN_COUNT ? MIN_COUNT : newCount;
 		setCount(validCount);
-	};
-	const handleCountPlus = () => {
+	}, [count]);
+
+	const handleCountPlus = useCallback(() => {
 		const newCount = count + 1;
 		const validCount = newCount > MAX_COUNT ? MAX_COUNT : newCount;
 		setCount(validCount);
-	};
+	}, [count]);
+
 	return { count, handleCount, handleCountMinus, handleCountPlus };
 };

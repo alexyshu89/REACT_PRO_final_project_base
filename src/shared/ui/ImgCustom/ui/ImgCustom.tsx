@@ -1,4 +1,5 @@
 import waitingImg from 'shared/assets/images/waiting.png';
+import { memo } from 'react';
 
 interface ImgCustomProps {
 	images: string;
@@ -6,11 +7,7 @@ interface ImgCustomProps {
 	className?: string;
 }
 
-export const ImgCustom: React.FC<ImgCustomProps> = ({
-	images,
-	alt,
-	className,
-}) => {
+export const ImgCustom = memo(({ images, alt, className }: ImgCustomProps) => {
 	return (
 		<img
 			src={images || waitingImg}
@@ -22,4 +19,4 @@ export const ImgCustom: React.FC<ImgCustomProps> = ({
 			}}
 		/>
 	);
-};
+});

@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import classNames from 'classnames';
+import { useMemo } from 'react';
 
 import truckSVG from 'shared/assets/icons/truck.svg';
 import qualitySVG from 'shared/assets/icons/quality.svg';
@@ -34,7 +35,10 @@ export const ProductPage = WithProtection(() => {
 
 	const { id, name, images, description, price, discount } = product;
 
-	const isProductInCart = !!cartProducts.find((p) => p.id === id);
+	const isProductInCart = useMemo(
+		() => !!cartProducts.find((p) => p.id === id),
+		[cartProducts, id]
+	);
 
 	return (
 		<>
