@@ -1,38 +1,49 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, useActionState } from 'react';
 import classNames from 'classnames';
 
 import { Rating } from 'shared/ui/Rating';
 
 import s from './ReviewForm.module.css';
+import { submitReviewAction } from '../model/submitReviewAction';
+import { ButtonCustom } from 'shared/ui/ButtonCustom';
 
 export const ReviewForm = () => {
-	const [reviewText, setReviewText] = useState('');
 	const [rating, setRating] = useState(0);
 
-	const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-		setReviewText(e.target.value);
-	};
-
-	const handleClick = () => {
-		console.log('Отправка: ', { reviewText, rating });
-	};
+	const [state, formAction, isPending] = useActionState(
+		async (prevState: any, formData: FormData) => {
+			const result = await submitReviewAction(prevState, formData);
+			if (result.success) {
+				setRating(0);
+			}
+			return result;
+		},
+		null
+	);
 
 	return (
-		<form className={s['form']}>
+		<form action={formAction} className={s['form']}>
 			<Rating isEdit rating={rating} onChange={setRating} />
+
+			<input type='hidden' name='rating' value={rating} />
+
 			<textarea
 				className={classNames(s['input'], s['textarea'])}
 				name='text'
 				id='text'
 				placeholder='Напишите текст отзыва'
-				value={reviewText}
-				onChange={handleChange}></textarea>
-			<button
+				required
+				disabled={isPending}></textarea>
+
+			<ButtonCustom
 				type='submit'
-				className={classNames(s['form__btn'], s['pramary'])}
-				onClick={handleClick}>
-				Отправить отзыв
-			</button>
+				className={classNames(s['form__btn'], s['primary'])}
+				disabled={isPending}>
+				{isPending ? 'Отправка...' : 'Отправить отзыв'}
+			</ButtonCustom>
+			{state?.success && (
+				<p className={s['success-msg']}>Отзыв успешно отправлен!</p>
+			)}
 		</form>
 	);
 };

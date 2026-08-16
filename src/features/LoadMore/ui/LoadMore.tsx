@@ -4,9 +4,10 @@ import { useRef } from 'react';
 import { useLoadMore } from '../hooks/useLoadMore';
 
 export const LoadMore = () => {
-	const ref = useRef<HTMLDivElement>(null);
-	const { isEndOfList, isFetching } = useLoadMore({ ref });
-
+	const ref = useRef<HTMLDivElement | null>(null);
+	const { isEndOfList, isFetching } = useLoadMore({
+		ref: ref as React.RefObject<HTMLDivElement>,
+	});
 	return (
 		<Stack
 			ref={ref}
