@@ -44,6 +44,10 @@ npm run build:esbuild (esbuild + SWC)
 
 Конфигурационный скрипт расположен в корне проекта: `esbuild.config.js`.
 
+Команды для сборок:
+npm run build (webpack)
+npm run build:esbuild (esbuild + SWC)
+
 ### Метрики производительности
 
 | Скрипт сборки           | Время сборки (Build Time) | Размер бандла (Output Size) | Количество файлов | Применяемые технологии |
@@ -64,3 +68,4 @@ npm run build:esbuild (esbuild + SWC)
 ## 6 Применение React 19 Hooks
 
 1. В ReviewForm используется useActionState для отправки и автоматического reset.
+2. Для LikeButton добавлен useOptimistic для мгновенной UI-реакций

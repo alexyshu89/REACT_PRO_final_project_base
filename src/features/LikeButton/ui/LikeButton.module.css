@@ -6,6 +6,11 @@
 	cursor: pointer;
 }
 
+.card__favorite svg,
+.card__favorite svg path {
+	transition: fill 0.3s ease;
+}
+
 .card__favorite svg {
 	fill: #ffffff;
 }
@@ -14,10 +19,12 @@
 	fill: #7b8e98;
 }
 
-.card__favorite_is-active svg {
-	fill: #f44336;
+.card__favorite_loading svg,
+.card__favorite_loading svg path:first-child {
+	fill: #ffcdd2; /* Нежно-розовый цвет (Material Design Red 100) */
 }
 
+.card__favorite_is-active svg,
 .card__favorite_is-active svg path:first-child {
 	fill: #f44336;
 }

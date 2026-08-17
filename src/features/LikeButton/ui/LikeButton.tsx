@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { toast } from 'react-toastify';
-import { useMemo, useCallback } from 'react';
+import { useMemo, useTransition, useOptimistic } from 'react';
 
 import { ButtonCustom } from 'shared/ui/ButtonCustom';
 import { useAppSelector } from 'shared/store/utils';
@@ -17,6 +17,7 @@ import s from './LikeButton.module.css';
 type TLikeButtonProps = {
 	product: Product;
 };
+
 export const LikeButton = ({ product }: TLikeButtonProps) => {
 	const accessToken = useAppSelector(userSelectors.getAccessToken);
 	const user = useAppSelector(userSelectors.getUser);
@@ -24,33 +25,47 @@ export const LikeButton = ({ product }: TLikeButtonProps) => {
 	const [setLike] = useSetLikeProductMutation();
 	const [deleteLike] = useDeleteLikeProductMutation();
 
+	const [isPending, startTransition] = useTransition();
+
 	const isLike = useMemo(
 		() => product?.likes.some((l) => l.userId === user?.id),
 		[product, user]
 	);
 
-	const toggleLike = useCallback(async () => {
+	const [optimisticIsLike, toggleOptimisticLike] = useOptimistic(
+		isLike,
+		(currentState, nextState: boolean) => nextState
+	);
+
+	const toggleLike = () => {
+		if (isPending) return;
+
 		if (!accessToken) {
 			toast.warning('Вы не авторизованы');
 			return;
 		}
-		let response;
-		if (isLike) {
-			response = await deleteLike({ id: `${product.id}` });
-		} else {
-			response = await setLike({ id: `${product.id}` });
-		}
 
-		if (response.error) {
-			const error = response.error as IErrorResponse;
-			toast.error(error.data.message);
-		}
-	}, [accessToken, isLike, product, setLike, deleteLike]);
+		startTransition(async () => {
+			toggleOptimisticLike(!isLike);
+
+			try {
+				if (isLike) {
+					await deleteLike({ id: `${product.id}` }).unwrap();
+				} else {
+					await setLike({ id: `${product.id}` }).unwrap();
+				}
+			} catch (error: any) {
+				const errorData = error as IErrorResponse;
+				toast.error(errorData?.data?.message || 'Что-то пошло не так');
+			}
+		});
+	};
 
 	return (
 		<ButtonCustom
 			className={classNames(s['card__favorite'], {
-				[s['card__favorite_is-active']]: isLike,
+				[s['card__favorite_loading']]: optimisticIsLike && isPending,
+				[s['card__favorite_is-active']]: optimisticIsLike && !isPending,
 			})}
 			click={toggleLike}>
 			<LikeSvg />
