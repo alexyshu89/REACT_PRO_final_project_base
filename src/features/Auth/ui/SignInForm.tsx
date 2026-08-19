@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import {
 	Avatar,
 	Box,
@@ -28,6 +28,8 @@ export const SignInForm: FC = () => {
 	const navigate = useNavigate();
 	const [signInRequestFn] = useSignInMutation();
 
+	const emailInputRef = useRef<HTMLInputElement | null>(null);
+
 	const {
 		control,
 		handleSubmit,
@@ -39,6 +41,12 @@ export const SignInForm: FC = () => {
 		},
 		resolver: yupResolver(signInFormSchema),
 	});
+
+	useEffect(() => {
+		if (emailInputRef.current) {
+			emailInputRef.current.focus();
+		}
+	}, []);
 
 	const submitHandler: SubmitHandler<SignInFormValues> = async (values) => {
 		try {
@@ -100,6 +108,10 @@ export const SignInForm: FC = () => {
 								error={!!errors.email?.message}
 								helperText={errors.email?.message}
 								{...field}
+								inputRef={(e) => {
+									field.ref(e);
+									emailInputRef.current = e;
+								}}
 							/>
 						)}
 					/>

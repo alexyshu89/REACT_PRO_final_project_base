@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
@@ -26,6 +26,9 @@ export const SignUpForm: FC = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [signUpRequestFn] = useSignUpMutation();
+
+	const emailInputRef = useRef<HTMLInputElement | null>(null);
+
 	const {
 		control,
 		handleSubmit,
@@ -37,6 +40,12 @@ export const SignUpForm: FC = () => {
 		},
 		resolver: yupResolver(signUpFormSchema),
 	});
+
+	useEffect(() => {
+		if (emailInputRef.current) {
+			emailInputRef.current.focus();
+		}
+	}, []);
 
 	const submitHandler: SubmitHandler<SignUpFormValues> = async (values) => {
 		try {
@@ -94,6 +103,10 @@ export const SignUpForm: FC = () => {
 								error={!!errors.email?.message}
 								helperText={errors.email?.message}
 								{...field}
+								inputRef={(e) => {
+									field.ref(e);
+									emailInputRef.current = e;
+								}}
 							/>
 						)}
 					/>
